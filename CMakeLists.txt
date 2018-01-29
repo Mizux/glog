@@ -44,8 +44,12 @@ set (CMAKE_THREAD_PREFER_PTHREAD 1)
 
 if (WITH_GFLAGS)
   find_package (gflags 2.2.0)
-
   if (gflags_FOUND)
+    if (TARGET gflags::gflags)
+      set(GFLAGS_TARGET gflags::gflags)
+    elseif(TARGET gflags)
+      set(GFLAGS_TARGET gflags)
+    endif()
     set (HAVE_LIB_GFLAGS 1)
     determine_gflags_namespace (gflags_NAMESPACE)
   endif (gflags_FOUND)
@@ -418,7 +422,7 @@ if (WIN32 AND HAVE_SNPRINTF)
 endif (WIN32 AND HAVE_SNPRINTF)
 
 if (gflags_FOUND)
-  target_link_libraries (glog PUBLIC gflags)
+  target_link_libraries (glog PUBLIC ${GFLAGS_TARGET})
 
   if (NOT BUILD_SHARED_LIBS)
     # Don't use __declspec(dllexport|dllimport) if this is a static build

@@ -34,7 +34,7 @@ int main(int argc, char**argv)
       try_compile (${VARIABLE}
         "${CMAKE_BINARY_DIR}" "${_check_file}"
         COMPILE_DEFINITIONS "${CMAKE_REQUIRED_DEFINITIONS}" -DGFLAGS_NAMESPACE=${_namespace}
-        LINK_LIBRARIES gflags
+        LINK_LIBRARIES ${GFLAGS_TARGET}
         CMAKE_FLAGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
         OUTPUT_VARIABLE OUTPUT)
 
